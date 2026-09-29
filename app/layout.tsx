@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import { OG_IMAGE } from "@/lib/images";
 import "./globals.css";
 
 // Single modern, corporate, premium typeface for the whole site.
@@ -13,7 +14,13 @@ const manrope = Manrope({
   display: "swap",
 });
 
+// Canlı site adresin. Vercel/hosting ayarlarında NEXT_PUBLIC_SITE_URL tanımlayabilir
+// ya da aşağıdaki adresi gerçek alan adınla değiştirebilirsin.
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.primetimetrainingclub.com";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
+  alternates: { canonical: "/" },
   title: "Prime Time Training Club | Manisa Spor Salonu",
   description:
     "Prime Time Training Club — Manisa Yunusemre Güzelyurt'ta spor salonu. Fitness, personal training ve online ders. Google'da 5,0 puan.",
@@ -32,6 +39,15 @@ export const metadata: Metadata = {
     locale: "tr_TR",
     type: "website",
     siteName: "Prime Time Training Club",
+    url: "/",
+    images: [OG_IMAGE],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Prime Time Training Club | Manisa Spor Salonu",
+    description:
+      "Manisa Yunusemre Güzelyurt'ta spor salonu. Fitness, personal training ve online ders.",
+    images: [OG_IMAGE.url],
   },
   robots: {
     index: true,
