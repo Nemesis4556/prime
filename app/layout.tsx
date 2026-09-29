@@ -14,9 +14,14 @@ const manrope = Manrope({
   display: "swap",
 });
 
-// Canlı site adresin. Vercel/hosting ayarlarında NEXT_PUBLIC_SITE_URL tanımlayabilir
-// ya da aşağıdaki adresi gerçek alan adınla değiştirebilirsin.
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.primetimetrainingclub.com";
+// Site adresi: önce elle verilen NEXT_PUBLIC_SITE_URL, yoksa Vercel'in otomatik
+// verdiği production adresi (ör. proje-adi.vercel.app), o da yoksa localhost.
+// Özel alan adı bağlayınca NEXT_PUBLIC_SITE_URL tanımlaman yeterli.
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : "http://localhost:3000");
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
