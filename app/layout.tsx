@@ -5,8 +5,6 @@ import Footer from "@/components/layout/Footer";
 import { OG_IMAGE } from "@/lib/images";
 import "./globals.css";
 
-// Single modern, corporate, premium typeface for the whole site.
-// Headings use weights 700–800, body copy uses 400–500 (see tailwind.config.ts).
 const manrope = Manrope({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800"],
@@ -14,9 +12,6 @@ const manrope = Manrope({
   display: "swap",
 });
 
-// Site adresi: önce elle verilen NEXT_PUBLIC_SITE_URL, yoksa Vercel'in otomatik
-// verdiği production adresi (ör. proje-adi.vercel.app), o da yoksa localhost.
-// Özel alan adı bağlayınca NEXT_PUBLIC_SITE_URL tanımlaman yeterli.
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ??
   (process.env.VERCEL_PROJECT_PRODUCTION_URL
@@ -26,7 +21,10 @@ const SITE_URL =
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   alternates: { canonical: "/" },
-  title: "Prime Time Training Club | Manisa Spor Salonu",
+  title: {
+    default: "Prime Time Training Club | Manisa Spor Salonu",
+    template: "%s | Prime Time Training Club",
+  },
   description:
     "Prime Time Training Club — Manisa Yunusemre Güzelyurt'ta spor salonu. Fitness, personal training ve online ders. Google'da 5,0 puan.",
   keywords: [
@@ -44,7 +42,7 @@ export const metadata: Metadata = {
     locale: "tr_TR",
     type: "website",
     siteName: "Prime Time Training Club",
-    url: "/",
+    url: SITE_URL,
     images: [OG_IMAGE],
   },
   twitter: {
@@ -57,6 +55,13 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
 };
 
@@ -66,12 +71,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="tr" className="dark">
-      <body
-        className={`${manrope.variable} font-body-md text-body-md bg-background text-on-surface antialiased`}
-      >
+    <html lang="tr" className={`dark ${manrope.variable}`}>
+      <body className="font-sans text-body-md bg-background text-on-surface antialiased min-h-screen flex flex-col">
         <Header />
-        <main className="w-full bg-background">{children}</main>
+        <main className="w-full flex-1 bg-background">{children}</main>
         <Footer />
       </body>
     </html>
