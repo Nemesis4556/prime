@@ -16,3 +16,14 @@ export const IMAGES = {
   // Ambitious Studio* | Rick Barrett — salon ekipmanları
   equipment: { src: u("1646656130630-07af3a262a9b"), alt: "Spor salonu ekipmanları" },
 } as const;
+
+// WhatsApp / sosyal medya link önizlemesi (Open Graph) görseli.
+// 1200x630 (1.91:1), JPG, mutlaka mutlak (https://...) adres olmalı.
+// Kendi fotoğrafını kullanmak için dosyayı public/images/og.jpg olarak koy ve
+// aşağıdaki değeri "/images/og.jpg" yap (metadataBase ile otomatik mutlak olur).
+export const OG_IMAGE = {
+  url: "https://images.unsplash.com/photo-1513352098199-8ccf457b35a8?q=75&w=1200&h=630&auto=format&fit=crop&fm=jpg",
+  width: 1200,
+  height: 630,
+  alt: "Prime Time Training Club — Manisa spor salonu",
+} as const;
